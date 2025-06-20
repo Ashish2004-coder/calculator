@@ -1,3 +1,5 @@
+image: python:3.10
+
 stages:
   - test
   - build
@@ -8,20 +10,17 @@ test:
   script:
     - echo "Starting test stage at $(date)"
     - pip install -r requirements.txt
-    - echo "Running tests at $(date)"
-    - PYTHONPATH=. pytest
-    - echo "Test stage completed at $(date)"
+    - export PYTHONPATH="$PYTHONPATH:."
+    - pytest
 
 build:
   stage: build
   script:
     - echo "Starting build stage at $(date)"
-    - echo "Building the application..."
-    - echo "Build stage completed at $(date)"
+    - echo "Build completed"
 
 deploy:
   stage: deploy
   script:
     - echo "Starting deploy stage at $(date)"
-    - echo "Deploying the application..."
-    - echo "Deploy stage completed at $(date)"
+    - echo "Deploy completed"
