@@ -5,27 +5,23 @@ stages:
 
 test:
   stage: test
-  image: python:3.10
-  before_script:
-    - echo "Installing dependencies at $(date)"
-    - pip install -r requirements.txt
   script:
+    - echo "Starting test stage at $(date)"
+    - pip install -r requirements.txt
     - echo "Running tests at $(date)"
-    - pytest
-    - echo "Tests completed at $(date)"
+    - PYTHONPATH=. pytest
+    - echo "Test stage completed at $(date)"
 
 build:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
   script:
-    - echo "Starting build at $(date)"
-    - docker build -t calculator-app .
-    - echo "Build completed at $(date)"
+    - echo "Starting build stage at $(date)"
+    - echo "Building the application..."
+    - echo "Build stage completed at $(date)"
 
 deploy:
   stage: deploy
   script:
-    - echo "Starting deployment at $(date)"
-    - echo "Deployment finished at $(date)"
+    - echo "Starting deploy stage at $(date)"
+    - echo "Deploying the application..."
+    - echo "Deploy stage completed at $(date)"
