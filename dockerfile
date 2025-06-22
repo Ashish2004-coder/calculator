@@ -8,8 +8,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy rest of the app
+# Copy rest of the server
 COPY . .
 
-# Run the Flask app
-CMD ["python", "app.py"]
+# Run the Flask server
+CMD ["python", "server.py"]

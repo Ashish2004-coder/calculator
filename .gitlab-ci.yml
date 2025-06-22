@@ -1,26 +1,35 @@
-image: python:3.10
-
 stages:
   - test
   - build
   - deploy
 
+variables:
+  PYTHONPATH: "$CI_PROJECT_DIR"
+
 test:
   stage: test
-  script:
-    - echo "Starting test stage at $(date)"
+  image: python:3.10
+  before_script:
+    - echo "Installing dependencies at $(date)"
     - pip install -r requirements.txt
-    - export PYTHONPATH="$PYTHONPATH:."
+  script:
+    - echo "Running tests at $(date)"
     - pytest
+    - echo "Tests completed at $(date)"
 
 build:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - echo "Starting build stage at $(date)"
-    - echo "Build completed"
+    - echo "Starting Docker build at $(date)"
+    - docker build -t calculator-app .
+    - echo "Build completed at $(date)"
 
 deploy:
   stage: deploy
   script:
-    - echo "Starting deploy stage at $(date)"
-    - echo "Deploy completed"
+    - echo "Starting deployment at $(date)"
+    # Add actual deployment steps below (e.g., Heroku CLI or SSH deploy)
+    - echo "Deployment finished at $(date)"
